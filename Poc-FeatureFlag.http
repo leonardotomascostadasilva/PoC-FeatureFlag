@@ -1,0 +1,6 @@
+@Poc_FeatureFlag_HostAddress = http://localhost:5117
+
+GET {{Poc_FeatureFlag_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
