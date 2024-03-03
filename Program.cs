@@ -16,29 +16,18 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
 app.MapGet("/weatherforecast", async (IFeatureManager featureManager) =>
     {
         List<WeatherForecast> forecast;
         if (await featureManager.IsEnabledAsync("FeatureC"))
         {
-            forecast = new List<WeatherForecast>()
-            {
-                new WeatherForecast(DateOnly.MinValue, 10, "old" )
-            };
+            forecast = [new WeatherForecast(DateOnly.MinValue, 10, "old")];
         }
         else
         {
-            forecast = new List<WeatherForecast>()
-            {
-                new WeatherForecast(DateOnly.MinValue, 10, "new" )
-            };
+            forecast = [new WeatherForecast(DateOnly.MinValue, 10, "new")];
         }
-       
+
         return forecast;
     })
     .WithName("GetWeatherForecast")
@@ -46,7 +35,4 @@ app.MapGet("/weatherforecast", async (IFeatureManager featureManager) =>
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary);
